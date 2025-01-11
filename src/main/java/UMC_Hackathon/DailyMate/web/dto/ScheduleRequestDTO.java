@@ -10,7 +10,5 @@ public class ScheduleRequestDTO {
         @NotNull
         String title;
         String content;
-        @ExistUsers
-        Long userId;
     }
 }

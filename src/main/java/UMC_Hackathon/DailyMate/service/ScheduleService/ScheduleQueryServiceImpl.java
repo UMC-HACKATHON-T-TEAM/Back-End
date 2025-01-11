@@ -24,7 +24,7 @@ public class ScheduleQueryServiceImpl implements  ScheduleQueryService {
     public Page<Schedules> getScheduleList(Long userId, Integer page) {
 
         Users users = userRepository.findById(userId) .orElseThrow(() -> new UserHandler(ErrorStatus.MEMBER_NOT_FOUND));
-        Page<Schedules> userPage = scheduleRepository.findAllByUser(users, PageRequest.of(page, 10));
+        Page<Schedules> userPage = scheduleRepository.findAllByUsers(users, PageRequest.of(page, 10));
 
         return userPage;
     }
