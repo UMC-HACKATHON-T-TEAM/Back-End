@@ -26,6 +26,18 @@ public class ScheduleConverter {
                 .build();
     }
 
+    public static Schedules toScheduleUpdateResultDTO (ScheduleRequestDTO.ScheduleUpdateRequestDto request, Users users, Schedules schedules) {
+        // 기존 Schedules 객체의 데이터를 업데이트
+        schedules.update(request.getTitle(), request.getContent());
+
+        // Users 객체를 재설정하는 경우
+        if (users != null && !schedules.getUsers().equals(users)) {
+            schedules.setUsers(users);
+        }
+
+        return schedules;
+
+    }
     public static ScheduleResponseDTO.SchedulePreViewDto toSchedulePreViewDTO (Schedules schedules){
         return ScheduleResponseDTO.SchedulePreViewDto.builder()
                 .title(schedules.getTitle())

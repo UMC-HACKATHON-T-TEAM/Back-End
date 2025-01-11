@@ -42,4 +42,13 @@ public class ScheduleResponseDTO {
         String content;
         LocalDate createdAt;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ScheduleUpdateResultDto {
+        Long scheduleId;
+        LocalDateTime updatedAt;
+    }
 }

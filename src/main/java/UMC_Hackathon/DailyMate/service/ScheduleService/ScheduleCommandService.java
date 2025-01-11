@@ -10,4 +10,7 @@ public interface ScheduleCommandService {
 
     @Transactional
     void deleteSchedule(Long scheduleId);
+
+    @Transactional
+    Schedules updateSchedule(ScheduleRequestDTO.ScheduleUpdateRequestDto request, Long userId, Long scheduleId);
 }
