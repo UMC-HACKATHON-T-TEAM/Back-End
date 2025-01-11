@@ -19,14 +19,25 @@ public class Fortune extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
+    @Column(nullable = false, length = 10)
+    private String dateName;
+
+    private Integer point;
+
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Column(nullable = false, length = 20)
-    private String color;
+    @Column(columnDefinition = "TEXT")
+    private String color1;
 
-    @Column(nullable = false, length = 20)
-    private String item;
+    @Column(columnDefinition = "TEXT")
+    private String color2;
+
+    @Column(columnDefinition = "TEXT")
+    private String item1;
+
+    @Column(columnDefinition = "TEXT")
+    private String item2;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
