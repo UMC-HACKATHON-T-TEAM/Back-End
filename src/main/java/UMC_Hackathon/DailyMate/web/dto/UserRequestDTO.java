@@ -28,6 +28,6 @@ public class UserRequestDTO {
     public static class EditInfoDto {
         String name;
         String password;
-        LocalDate birth;
+        String birth;
     }
 }

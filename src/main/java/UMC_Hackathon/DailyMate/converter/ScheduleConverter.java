@@ -6,6 +6,7 @@ import UMC_Hackathon.DailyMate.web.dto.ScheduleRequestDTO;
 import UMC_Hackathon.DailyMate.web.dto.ScheduleResponseDTO;
 import org.springframework.data.domain.Page;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,9 +20,12 @@ public class ScheduleConverter {
     }
 
     public static Schedules toScheduleDTO (ScheduleRequestDTO.ScheduleDto request, Users users){
+        String[] split = request.getDate().split("-");
+        LocalDate requestDate = LocalDate.of(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+
         return Schedules.builder()
                 .users(users)
-                .date(request.getDate())
+                .date(requestDate)
                 .title(request.getTitle())
                 .content(request.getContent())
                 .build();

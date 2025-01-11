@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -50,9 +51,13 @@ public class UserCommandServiceImpl implements UserCommandService{
     public Users EditOwnData(Long userId, UserRequestDTO.EditInfoDto request) {
         Users user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("사용자를 찾을 수 없습니다."));
 
+        String[] split = request.getBirth().split("-");
+        LocalDate requestDate = LocalDate.of(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+
+
         user.setName(request.getName());
         user.setPassword(request.getPassword());
-        user.setBirthday(request.getBirth());
+        user.setBirthday(requestDate);
 
         return userRepository.save(user);
     }
