@@ -24,4 +24,11 @@ public class UserConverter {
                 .birthday(request.getBirthday())
                 .build();
     }
+
+    public static UserResponseDTO.OwnPageDTO toOwnPageDTO(Users users){
+        return UserResponseDTO.OwnPageDTO.builder()
+                .name(users.getName())
+                .birthday(users.getBirthday().toString())
+                .build();
+    }
 }
