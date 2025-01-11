@@ -1,0 +1,45 @@
+package UMC_Hackathon.DailyMate.web.dto;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
+public class ScheduleResponseDTO {
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ScheduleResultDto {
+        Long scheduleId;
+        LocalDateTime createdAt;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SchedulePreViewListDto {
+        List<SchedulePreViewDto> scheduleList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SchedulePreViewDto {
+        String title;
+        String content;
+        LocalDate createdAt;
+    }
+}
