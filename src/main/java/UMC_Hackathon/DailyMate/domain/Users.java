@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class Users extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String password;
 
-    private Date birthday;
+    private String birthday;
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -43,6 +44,11 @@ public class Users extends BaseEntity {
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Schedules> schedulesList = new ArrayList<>();
+
+    public void setPassword(String rawPassword, PasswordEncoder passwordEncoder) {
+        // 비밀번호를 암호화한 후 저장
+        this.password = passwordEncoder.encode(rawPassword);
+    }
 
     public void encodePassword(String password) {
         this.password = password;
