@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+
 @Service
 @RequiredArgsConstructor
 public class UserCommandServiceImpl implements UserCommandService{
@@ -50,7 +52,7 @@ public class UserCommandServiceImpl implements UserCommandService{
 
         user.setName(request.getName());
         user.setPassword(request.getPassword());
-        user.setBirthday(request.getBirth());
+        user.setBirthday(Date.valueOf(request.getBirth()));
 
         return userRepository.save(user);
     }
