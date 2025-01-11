@@ -26,11 +26,6 @@ public class ScheduleResponseDTO {
     @AllArgsConstructor
     public static class SchedulePreViewListDto {
         List<SchedulePreViewDto> scheduleList;
-        Integer listSize;
-        Integer totalPage;
-        Long totalElements;
-        Boolean isFirst;
-        Boolean isLast;
     }
 
     @Builder
@@ -38,6 +33,7 @@ public class ScheduleResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SchedulePreViewDto {
+        Long scheduleId;
         String date;
         String title;
         String content;
