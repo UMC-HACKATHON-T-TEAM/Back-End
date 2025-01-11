@@ -1,9 +1,6 @@
 package UMC_Hackathon.DailyMate.web.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -15,5 +12,14 @@ public class UserResponseDTO {
     public static class JoinResultDTO{
         Long userId;
         LocalDateTime createdAt;
+    }
+
+    @Builder
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OwnPageDTO{
+        String name;
+        String birthday;
     }
 }

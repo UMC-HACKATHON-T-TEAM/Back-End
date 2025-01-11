@@ -6,5 +6,5 @@ import jakarta.transaction.Transactional;
 
 public interface HomeQueryService {
     @Transactional
-    HomeResponseDTO.GetHomeResponseDTO getHome(Long userId, HomeRequestDTO.Coord coord);
+    HomeResponseDTO.GetHomeResponseDTO getHome(Long userId, double lat, double lon);
 }

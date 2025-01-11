@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/home")
@@ -19,7 +18,8 @@ public class HomeRestController {
 
     @GetMapping("/{userId}")
     @Operation(summary = "홈 화면 조회 API")
-    public ApiResponse<HomeResponseDTO.GetHomeResponseDTO> getHome(@ExistUsers @PathVariable Long userId, @RequestBody HomeRequestDTO.Coord coord) {
-        return ApiResponse.onSuccess(homeQueryService.getHome(userId, coord));
+    public ApiResponse<HomeResponseDTO.GetHomeResponseDTO> getHome(@PathVariable Long userId, @RequestParam double lat, @RequestParam double lon) {
+        System.out.println("in Method");
+        return ApiResponse.onSuccess(homeQueryService.getHome(userId, lat, lon));
     }
 }

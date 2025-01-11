@@ -31,12 +31,16 @@ public class HomeQueryServiceImpl implements HomeQueryService {
 
     @Override
     @Transactional
-    public HomeResponseDTO.GetHomeResponseDTO getHome(Long userId, HomeRequestDTO.Coord coord) {
+    public HomeResponseDTO.GetHomeResponseDTO getHome(Long userId, double lat, double lon) {
         Users user = userRepository.findById(userId).orElseThrow(() -> new UserHandler(ErrorStatus.MEMBER_NOT_FOUND));
         String name = user.getName();
 
+        System.out.println("after using weather data api");
+
         //날씨 api 사용
-        WeatherDTO.Weather weather = weatherQueryService.getWeather(user, coord.getLat(), coord.getLon());
+        WeatherDTO.Weather weather = weatherQueryService.getWeather(user, lat, lon);
+
+        System.out.println("after using weather data api");
 
         List<HomeResponseDTO.SchedulesDTO> schedules = new ArrayList<>();
         List<Schedules> schedulesList = scheduleRepository.getSchedulesByUser(user);

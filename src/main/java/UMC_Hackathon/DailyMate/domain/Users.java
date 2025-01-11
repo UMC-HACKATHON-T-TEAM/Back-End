@@ -18,6 +18,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Data
 @DynamicUpdate
 @DynamicInsert
 @Builder
