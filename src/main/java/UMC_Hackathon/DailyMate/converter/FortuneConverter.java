@@ -6,14 +6,16 @@ import UMC_Hackathon.DailyMate.domain.Users;
 import UMC_Hackathon.DailyMate.web.dto.ScheduleRequestDTO;
 
 public class FortuneConverter {
-    public static Fortune toFortune(Users user, String messageDateName, Integer point, String content, String color1, String color2, String item1, String item2){
+    public static Fortune toFortune(Users user, String messageDateName, Integer point, String content, String color1, String color1HexCode, String color2, String color2HexCode, String item1, String item2){
         return Fortune.builder()
                 .users(user)
                 .dateName(messageDateName)
                 .point(point)
                 .content(content)
                 .color1(color1)
+                .color1HexCode(color1HexCode)
                 .color2(color2)
+                .color2HexCode(color2HexCode)
                 .item1(item1)
                 .item2(item2)
                 .build();
