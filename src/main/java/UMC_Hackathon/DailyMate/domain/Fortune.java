@@ -30,8 +30,14 @@ public class Fortune extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String color1;
 
+    @Column(nullable = false, length = 10)
+    private String color1HexCode;
+
     @Column(columnDefinition = "TEXT")
     private String color2;
+
+    @Column(nullable = false, length = 10)
+    private String color2HexCode;
 
     @Column(columnDefinition = "TEXT")
     private String item1;
