@@ -11,7 +11,7 @@ public class ScheduleRequestDTO {
     @Getter
     public static class ScheduleDto {
         @NotNull
-        LocalDate date;
+        String date;
         @NotBlank
         String title;
         @NotBlank
