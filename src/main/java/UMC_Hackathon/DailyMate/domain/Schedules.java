@@ -2,6 +2,7 @@ package UMC_Hackathon.DailyMate.domain;
 
 import UMC_Hackathon.DailyMate.domain.common.BaseEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -20,6 +21,9 @@ public class Schedules extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+
+    @Size(min = 10, max = 10, message = "날짜는 정확히 10자리로 입력해야 합니다. 예: YYYY.MM.DD")
+    private String date;
 
     @Column(nullable = false, length = 50)
     private String title;
@@ -43,5 +47,10 @@ public class Schedules extends BaseEntity {
         if (users != null) {
             users.getSchedulesList().add(this);
         }
+    }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 }

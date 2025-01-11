@@ -4,8 +4,10 @@ import UMC_Hackathon.DailyMate.domain.Schedules;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface ScheduleQueryService {
     @Transactional
-    Page<Schedules> getScheduleList(Long userId, Integer page);
+    List<Schedules> getSchedulesList(Long userId);
 
 }

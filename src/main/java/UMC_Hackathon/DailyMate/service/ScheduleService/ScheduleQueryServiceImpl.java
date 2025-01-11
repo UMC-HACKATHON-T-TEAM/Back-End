@@ -7,25 +7,22 @@ import UMC_Hackathon.DailyMate.domain.Users;
 import UMC_Hackathon.DailyMate.repository.ScheduleRepository;
 import UMC_Hackathon.DailyMate.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ScheduleQueryServiceImpl implements  ScheduleQueryService {
+public class ScheduleQueryServiceImpl implements ScheduleQueryService {
 
     private final ScheduleRepository scheduleRepository;
-
     private final UserRepository userRepository;
 
-
     @Override
-    public Page<Schedules> getScheduleList(Long userId, Integer page) {
-
-        Users users = userRepository.findById(userId) .orElseThrow(() -> new UserHandler(ErrorStatus.MEMBER_NOT_FOUND));
-        Page<Schedules> userPage = scheduleRepository.findAllByUsers(users, PageRequest.of(page, 100));
-
-        return userPage;
+    public List<Schedules> getSchedulesList(Long userId) {
+        Users users = userRepository.findById(userId)
+                .orElseThrow(() -> new UserHandler(ErrorStatus.MEMBER_NOT_FOUND));
+        List<Schedules> userSchedules = scheduleRepository.getSchedulesByUser(users);
+        return userSchedules;
     }
 }

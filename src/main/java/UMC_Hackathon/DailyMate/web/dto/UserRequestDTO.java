@@ -11,7 +11,6 @@ public class UserRequestDTO {
         @NotBlank
         String name;
         @NotBlank
-        @Email
         String email;
         @NotBlank
         String password;

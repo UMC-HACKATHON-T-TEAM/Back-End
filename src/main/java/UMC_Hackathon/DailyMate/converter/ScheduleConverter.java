@@ -21,31 +21,37 @@ public class ScheduleConverter {
     public static Schedules toScheduleDTO (ScheduleRequestDTO.ScheduleDto request, Users users){
         return Schedules.builder()
                 .users(users)
+                .date(request.getDate())
                 .title(request.getTitle())
                 .content(request.getContent())
                 .build();
     }
 
+    public static Schedules toScheduleUpdateResultDTO (ScheduleRequestDTO.ScheduleUpdateRequestDto request, Users users, Schedules schedules) {
+        // 기존 Schedules 객체의 데이터를 업데이트
+        schedules.update(request.getTitle(), request.getContent());
+
+        // Users 객체를 재설정하는 경우
+        if (users != null && !schedules.getUsers().equals(users)) {
+            schedules.setUsers(users);
+        }
+
+        return schedules;
+
+    }
     public static ScheduleResponseDTO.SchedulePreViewDto toSchedulePreViewDTO (Schedules schedules){
         return ScheduleResponseDTO.SchedulePreViewDto.builder()
+                .scheduleId(schedules.getId()) // scheduleId 추가
+                .date(schedules.getDate())
                 .title(schedules.getTitle())
                 .content(schedules.getContent())
                 .createdAt(schedules.getCreatedAt().toLocalDate())
                 .build();
     }
 
-    public static ScheduleResponseDTO.SchedulePreViewListDto toSchedulePreViewListDTO (Page<Schedules> schedulesList){
-
-        List<ScheduleResponseDTO.SchedulePreViewDto> schedulePreViewDTOList = schedulesList.stream()
-                .map(ScheduleConverter::toSchedulePreViewDTO).collect(Collectors.toList());
-
-        return ScheduleResponseDTO.SchedulePreViewListDto.builder()
-                .isLast(schedulesList.isLast())
-                .isFirst(schedulesList.isFirst())
-                .totalPage(schedulesList.getTotalPages())
-                .totalElements(schedulesList.getTotalElements())
-                .listSize(schedulePreViewDTOList.size())
-                .scheduleList(schedulePreViewDTOList)
-                .build();
+    public static List<ScheduleResponseDTO.SchedulePreViewDto> toSchedulePreViewListDTO(List<Schedules> schedulesList) {
+        return schedulesList.stream()
+                .map(ScheduleConverter::toSchedulePreViewDTO)
+                .collect(Collectors.toList());
     }
 }
