@@ -41,6 +41,7 @@ public class ScheduleConverter {
     }
     public static ScheduleResponseDTO.SchedulePreViewDto toSchedulePreViewDTO (Schedules schedules){
         return ScheduleResponseDTO.SchedulePreViewDto.builder()
+                .scheduleId(schedules.getId()) // scheduleId 추가
                 .date(schedules.getDate())
                 .title(schedules.getTitle())
                 .content(schedules.getContent())
@@ -48,18 +49,9 @@ public class ScheduleConverter {
                 .build();
     }
 
-    public static ScheduleResponseDTO.SchedulePreViewListDto toSchedulePreViewListDTO (Page<Schedules> schedulesList){
-
-        List<ScheduleResponseDTO.SchedulePreViewDto> schedulePreViewDTOList = schedulesList.stream()
-                .map(ScheduleConverter::toSchedulePreViewDTO).collect(Collectors.toList());
-
-        return ScheduleResponseDTO.SchedulePreViewListDto.builder()
-                .isLast(schedulesList.isLast())
-                .isFirst(schedulesList.isFirst())
-                .totalPage(schedulesList.getTotalPages())
-                .totalElements(schedulesList.getTotalElements())
-                .listSize(schedulePreViewDTOList.size())
-                .scheduleList(schedulePreViewDTOList)
-                .build();
+    public static List<ScheduleResponseDTO.SchedulePreViewDto> toSchedulePreViewListDTO(List<Schedules> schedulesList) {
+        return schedulesList.stream()
+                .map(ScheduleConverter::toSchedulePreViewDTO)
+                .collect(Collectors.toList());
     }
 }

@@ -5,16 +5,16 @@ import UMC_Hackathon.DailyMate.converter.ScheduleConverter;
 import UMC_Hackathon.DailyMate.domain.Schedules;
 import UMC_Hackathon.DailyMate.service.ScheduleService.ScheduleCommandService;
 import UMC_Hackathon.DailyMate.service.ScheduleService.ScheduleQueryService;
-import UMC_Hackathon.DailyMate.validation.annotation.CheckPage;
 import UMC_Hackathon.DailyMate.validation.annotation.ExistUsers;
 import UMC_Hackathon.DailyMate.web.dto.ScheduleRequestDTO;
 import UMC_Hackathon.DailyMate.web.dto.ScheduleResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Validated
 @RestController
@@ -35,9 +35,8 @@ public class ScheduleRestController {
 
     @GetMapping("/{scheduleId}")
     @Operation(summary = "일정 조회 API", description = "내가 추가한 일정들을 조회하는 API입니다.")
-    public ApiResponse<ScheduleResponseDTO.SchedulePreViewListDto> getScheduleList(@ExistUsers @RequestParam(name = "userId") Long userId,
-                                                                               @CheckPage @RequestParam(name = "page", defaultValue = "1") Integer page) {
-        Page<Schedules> myScheduleList = scheduleQueryService.getScheduleList(userId, page - 1);
+    public ApiResponse<List<ScheduleResponseDTO.SchedulePreViewDto>> getSchedulesList(@ExistUsers @RequestParam(name = "userId") Long userId) {
+        List<Schedules> myScheduleList = scheduleQueryService.getSchedulesList(userId);
         return ApiResponse.onSuccess(ScheduleConverter.toSchedulePreViewListDTO(myScheduleList));
     }
 
