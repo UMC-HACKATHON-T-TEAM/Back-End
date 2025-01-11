@@ -1,6 +1,7 @@
 package UMC_Hackathon.DailyMate.domain;
 
 import UMC_Hackathon.DailyMate.domain.common.BaseEntity;
+import UMC_Hackathon.DailyMate.domain.enums.Gender;
 import UMC_Hackathon.DailyMate.domain.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,7 +37,11 @@ public class Users extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String password;
 
-    private String birthday;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10)")
+    private Gender gender;
+
+    private Date birthday;
 
     @Enumerated(EnumType.STRING)
     @Column
