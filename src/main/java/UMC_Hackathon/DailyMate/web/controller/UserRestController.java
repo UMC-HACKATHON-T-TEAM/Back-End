@@ -48,9 +48,9 @@ public class UserRestController {
 
     @PatchMapping("/{userId}/edit")
     @Operation(summary = "자신의 정보를 수정하는 화면 API", description = "닉네임, 비밀번호, 생년월일을 수정할 수 있습니다.")
-    public ApiResponse<Long> EditOwnInfo(@ExistUsers @PathVariable Long userId, @RequestBody UserRequestDTO.EditInfoDto editInfoDto) {
+    public ApiResponse<UserResponseDTO.userIdDTO> EditOwnInfo(@ExistUsers @PathVariable Long userId, @RequestBody UserRequestDTO.EditInfoDto editInfoDto) {
         Users user = userCommandService.EditOwnData(userId, editInfoDto);
 
-        return new ApiResponse<>(true, "200", "성공하였습니다.", user.getId());
+        return new ApiResponse<>(true, "200", "성공하였습니다.", UserConverter.toUserIdDTO(user));
     }
 }

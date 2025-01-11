@@ -32,4 +32,9 @@ public class UserConverter {
                 .birthday(users.getBirthday().toString())
                 .build();
     }
+
+    public static UserResponseDTO.userIdDTO toUserIdDTO(Users users){
+        return UserResponseDTO.userIdDTO.builder()
+                .userId(users.getId()).build();
+    }
 }

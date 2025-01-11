@@ -22,4 +22,12 @@ public class UserResponseDTO {
         String name;
         String birthday;
     }
+
+    @Builder
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class userIdDTO {
+        Long userId;
+    }
 }
