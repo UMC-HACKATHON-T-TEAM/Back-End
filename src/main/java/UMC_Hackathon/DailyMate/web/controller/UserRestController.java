@@ -9,10 +9,7 @@ import UMC_Hackathon.DailyMate.web.dto.UserResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,4 +25,12 @@ public class UserRestController {
         return ApiResponse.onSuccess(UserConverter.toJoinResultDTO(users));
     }
 
+    @PostMapping("/login")
+    @Operation(summary = "사용자 로그인 API")
+    public ApiResponse<Users> login(@RequestParam String email, @RequestParam String password) {
+        // 사용자 인증
+        Users authenticatedUser = userCommandService.authenticateUser(email, password);
+
+        return new ApiResponse<>(true, "200", "로그인 성공", authenticatedUser);
+    }
 }
