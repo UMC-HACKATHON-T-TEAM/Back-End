@@ -1,0 +1,34 @@
+package UMC_Hackathon.DailyMate.web.controller;
+
+import UMC_Hackathon.DailyMate.apiPayload.ApiResponse;
+import UMC_Hackathon.DailyMate.converter.ScheduleConverter;
+import UMC_Hackathon.DailyMate.domain.Schedules;
+import UMC_Hackathon.DailyMate.service.ScheduleService.ScheduleCommandService;
+import UMC_Hackathon.DailyMate.service.ScheduleService.ScheduleQueryService;
+import UMC_Hackathon.DailyMate.validation.annotation.ExistUsers;
+import UMC_Hackathon.DailyMate.web.dto.ScheduleRequestDTO;
+import UMC_Hackathon.DailyMate.web.dto.ScheduleResponseDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+@Validated
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/schedules")
+public class ScheduleRestController {
+
+    private final ScheduleCommandService scheduleCommandService;
+    //private final ScheduleQueryService scheduleQueryService;
+
+    @PostMapping("/")
+    @Operation(summary = "일정 추가 API")
+    public ApiResponse<ScheduleResponseDTO.ScheduleResultDto> createSchedule(@RequestBody @Valid ScheduleRequestDTO.ScheduleDto request,
+                                                                             @ExistUsers @RequestParam(name = "userId") Long userId) {
+        Schedules schedules = scheduleCommandService.createSchedule(request, userId);
+        return ApiResponse.onSuccess(ScheduleConverter.toScheduleResultDTO(schedules));
+    }
+
+}
