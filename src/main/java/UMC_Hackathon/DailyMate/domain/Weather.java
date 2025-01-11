@@ -1,11 +1,21 @@
 package UMC_Hackathon.DailyMate.domain;
 
+import UMC_Hackathon.DailyMate.domain.common.BaseEntity;
 import UMC_Hackathon.DailyMate.domain.enums.WeatherCondition;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-public class Weather {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Weather extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;

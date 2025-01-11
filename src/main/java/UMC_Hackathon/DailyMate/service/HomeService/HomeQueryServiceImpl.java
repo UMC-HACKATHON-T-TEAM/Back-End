@@ -5,8 +5,10 @@ import UMC_Hackathon.DailyMate.apiPayload.exception.handler.UserHandler;
 import UMC_Hackathon.DailyMate.converter.HomeConverter;
 import UMC_Hackathon.DailyMate.domain.Schedules;
 import UMC_Hackathon.DailyMate.domain.Users;
+import UMC_Hackathon.DailyMate.domain.Weather;
 import UMC_Hackathon.DailyMate.repository.ScheduleRepository;
 import UMC_Hackathon.DailyMate.repository.UserRepository;
+import UMC_Hackathon.DailyMate.repository.WeatherRepository;
 import UMC_Hackathon.DailyMate.service.WeatherService.WeatherQueryService;
 import UMC_Hackathon.DailyMate.web.dto.HomeRequestDTO;
 import UMC_Hackathon.DailyMate.web.dto.HomeResponseDTO;
@@ -34,7 +36,7 @@ public class HomeQueryServiceImpl implements HomeQueryService {
         String name = user.getName();
 
         //날씨 api 사용
-        WeatherDTO.Weather weather = weatherQueryService.getWeather(coord.getLat(), coord.getLon());
+        WeatherDTO.Weather weather = weatherQueryService.getWeather(user, coord.getLat(), coord.getLon());
 
         List<HomeResponseDTO.SchedulesDTO> schedules = new ArrayList<>();
         List<Schedules> schedulesList = scheduleRepository.getSchedulesByUser(user);
