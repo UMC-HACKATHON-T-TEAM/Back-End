@@ -53,4 +53,11 @@ public class UserRestController {
 
         return new ApiResponse<>(true, "200", "성공하였습니다.", UserConverter.toUserIdDTO(user));
     }
+
+    @DeleteMapping("/{userId}/delete")
+    @Operation(summary = "회원 탈퇴를 진행하는 API", description = "해당 유저 ID와 관련된 모든 자료를 삭제한다.")
+    public ApiResponse Withdrawal(@ExistUsers @PathVariable Long userId) {
+        userQueryService.withdrawal(userId);
+        return new ApiResponse(true, "200", "탈퇴되었습니다.", null);
+    }
 }
