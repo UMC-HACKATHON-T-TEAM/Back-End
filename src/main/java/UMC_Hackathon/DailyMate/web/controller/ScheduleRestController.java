@@ -34,7 +34,7 @@ public class ScheduleRestController {
     }
 
     @GetMapping("/{scheduleId}")
-    @Operation(summary = "일정 조회 API")
+    @Operation(summary = "일정 조회 API", description = "내가 추가한 일정들을 조회하는 API입니다.")
     public ApiResponse<ScheduleResponseDTO.SchedulePreViewListDto> getScheduleList(@ExistUsers @RequestParam(name = "userId") Long userId,
                                                                                @CheckPage @RequestParam(name = "page", defaultValue = "1") Integer page) {
         Page<Schedules> myScheduleList = scheduleQueryService.getScheduleList(userId, page - 1);
@@ -42,14 +42,14 @@ public class ScheduleRestController {
     }
 
     @DeleteMapping("/{scheduleId}")
-    @Operation(summary = "일정 삭제 API")
+    @Operation(summary = "일정 삭제 API", description = "내가 추가한 일정들을 삭제하는 API입니다.")
     public ApiResponse<Void> deleteSchedule(@PathVariable Long scheduleId) {
         scheduleCommandService.deleteSchedule(scheduleId);
         return new ApiResponse<>(true, null, "일정이 성공적으로 삭제되었습니다.", null);
     }
 
     @PatchMapping("/{scheduleId}")
-    @Operation(summary = "일정 수정 API")
+    @Operation(summary = "일정 수정 API", description = "내가 추가한 일정들을 수정하는 API입니다.")
     public ApiResponse<ScheduleResponseDTO.ScheduleUpdateResultDto> updateSchedule(@RequestBody @Valid ScheduleRequestDTO.ScheduleUpdateRequestDto request,
                                                                                    @ExistUsers @RequestParam(name = "userId") Long userId, @PathVariable Long scheduleId) {
         Schedules updatedSchedule = scheduleCommandService.updateSchedule(request, userId, scheduleId);
