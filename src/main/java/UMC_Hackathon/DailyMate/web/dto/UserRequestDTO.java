@@ -22,7 +22,6 @@ public class UserRequestDTO {
         Gender gender;
         @NotNull
         LocalDate birthday;
-
     }
 
     @Data

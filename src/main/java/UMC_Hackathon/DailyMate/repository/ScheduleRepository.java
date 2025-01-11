@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -15,4 +16,6 @@ public interface ScheduleRepository extends JpaRepository<Schedules, Long> {
 
     @Query("SELECT s FROM Schedules s where s.users = :user")
     List<Schedules> getSchedulesByUser(Users user);
+
+    List<Schedules> findByUsersAndDate(Users user, LocalDate date);
 }

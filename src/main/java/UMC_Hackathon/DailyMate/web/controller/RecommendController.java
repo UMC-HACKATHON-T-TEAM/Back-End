@@ -18,7 +18,7 @@ public class RecommendController {
     private final RecommendCommandService recommendCommandService;
 
     @Operation(summary = "자세한 운세 생성 및 옷차림 추천 api", description =
-            "# 자세한 운세를 생성하고 저장하며 회원정보와 운세, 그리고 날씨 정보에 따른 옷차림을 ChagGpt로 추천해줍니다."
+            "# 자세한 운세를 생성하고 저장하며 회원정보와 운세, 그리고 날씨 정보에 따른 옷차림을 ChatGpt로 추천해줍니다."
     )
     @PostMapping("/")
     public ApiResponse<RecommendResponseDTO.RecommendResultDTO> CreandRecommendAndPostFortune(

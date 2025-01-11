@@ -11,12 +11,8 @@ public class RecommendResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RecommendResultDTO {
-        Long userId;
-        String outer;
-        String top;
-        String bottom;
-        String acc;
         String fortunePoint;
         String fortuneDate;
+        String recommend;
     }
 }

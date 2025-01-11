@@ -1,9 +1,15 @@
 package UMC_Hackathon.DailyMate.service.FortuneService;
 
 import UMC_Hackathon.DailyMate.converter.FortuneConverter;
+import UMC_Hackathon.DailyMate.converter.RecommendConverter;
+import UMC_Hackathon.DailyMate.domain.Fortune;
+import UMC_Hackathon.DailyMate.domain.Schedules;
 import UMC_Hackathon.DailyMate.domain.Users;
+import UMC_Hackathon.DailyMate.domain.Weather;
 import UMC_Hackathon.DailyMate.repository.FortuneRepository;
+import UMC_Hackathon.DailyMate.repository.ScheduleRepository;
 import UMC_Hackathon.DailyMate.repository.UserRepository;
+import UMC_Hackathon.DailyMate.repository.WeatherRepository;
 import UMC_Hackathon.DailyMate.web.dto.Chatgpt.ChatGPTRequestDTO;
 import UMC_Hackathon.DailyMate.web.dto.Chatgpt.ChatGPTResponseDTO;
 import UMC_Hackathon.DailyMate.web.dto.RecommendRequestDTO;
@@ -15,6 +21,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -22,6 +33,8 @@ public class RecommendCommandServiceImpl implements RecommendCommandService {
 
     private final UserRepository userRepository;
     private final FortuneRepository fortuneRepository;
+    private final WeatherRepository weatherRepository;
+    private final ScheduleRepository scheduleRepository;
 
     @Value("${openai.model}")
     private String model;
@@ -108,6 +121,36 @@ public class RecommendCommandServiceImpl implements RecommendCommandService {
 
         fortuneRepository.save(FortuneConverter.toFortune(user, messageDateName, point, messageFortune, messageColor1, messageColor2, messageItem1, messageItem2));
 
-        return null;
+        // 날씨 정보 가져오기
+        Weather weather = weatherRepository.findByUsers(user);
+        String temperature = weather.getTemperature().toString();
+        String weatherCondition = weather.getWeatherCondition().toString();
+
+        // 해당 날짜의 일정 모두 가져오기
+        List<Schedules> schedulesList = scheduleRepository.findByUsersAndDate(user, LocalDate.now());
+        List<String> titles = schedulesList.stream()
+                .map(Schedules::getTitle) // getTitle() 호출
+                .collect(Collectors.toList());
+
+        // 운세정보 가져오기 - ChatGPT로 가져온 값 사용.
+
+        // ChagGPT로 옷차림 추천받기
+        String color1 = messageColor1.split(" - ")[0];
+        String color2 = messageColor1.split(" - ")[0];
+        String item1 = messageColor1.split(" - ")[0];
+        String item2 = messageColor1.split(" - ")[0];
+        systemPrompt = "";
+        userPrompt = "아래의 날씨 정보와 일정 그리고 운세정보(행운의 색과 아이템)에 따라 카테고리별로 입을만한 옷을 추천해줘\n"
+                + "날씨 정보 - 기온: 섭씨" + temperature + ", 날씨: " + weatherCondition + "\n"
+                + "일정 정보 : " + titles + "\n"
+                + "행운의 색 : " + color1 + ", " + color2 + " 행운의 아이템: " + item1 + ", " + item2 + "\n"
+                + "옷 카테고리 : Outer, Top, Bottom, ACC"
+                + "답변 예시는 아래와 같아\n"
+                + "Outer : 롱 패딩\nTop : 흰색 맨투맨\nBottom : 조거 팬츠\nACC : 목도리, 장갑, 실버링\n\n"
+                + "답변 예시와 같은 형식 이외의 말은 제외시키고 답해줘 그리고 답변예시의 형식과 정확히 동일하게 답해줘";
+        String recommend = getResponseOfChatGptApi(systemPrompt, userPrompt);
+        System.out.println(recommend);
+
+        return RecommendConverter.toRecommendResultDTO(messageFortunePoint, messageDateName, recommend);
     }
 }
