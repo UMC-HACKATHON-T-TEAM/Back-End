@@ -21,6 +21,7 @@ public class ScheduleConverter {
     public static Schedules toScheduleDTO (ScheduleRequestDTO.ScheduleDto request, Users users){
         return Schedules.builder()
                 .users(users)
+                .date(request.getDate())
                 .title(request.getTitle())
                 .content(request.getContent())
                 .build();
@@ -28,6 +29,7 @@ public class ScheduleConverter {
 
     public static ScheduleResponseDTO.SchedulePreViewDto toSchedulePreViewDTO (Schedules schedules){
         return ScheduleResponseDTO.SchedulePreViewDto.builder()
+                .date(schedules.getDate())
                 .title(schedules.getTitle())
                 .content(schedules.getContent())
                 .createdAt(schedules.getCreatedAt().toLocalDate())

@@ -38,6 +38,7 @@ public class ScheduleResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SchedulePreViewDto {
+        String date;
         String title;
         String content;
         LocalDate createdAt;
