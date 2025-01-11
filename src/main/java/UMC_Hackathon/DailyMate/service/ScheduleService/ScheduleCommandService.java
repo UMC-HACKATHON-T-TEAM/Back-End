@@ -7,4 +7,7 @@ import jakarta.transaction.Transactional;
 public interface ScheduleCommandService {
     @Transactional
     Schedules createSchedule(ScheduleRequestDTO.ScheduleDto request, Long userId);
+
+    @Transactional
+    void deleteSchedule(Long scheduleId);
 }

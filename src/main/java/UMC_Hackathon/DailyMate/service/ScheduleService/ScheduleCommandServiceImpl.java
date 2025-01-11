@@ -28,4 +28,17 @@ public class ScheduleCommandServiceImpl implements ScheduleCommandService {
 
         return scheduleRepository.save(newSchedule);
     }
+
+    @Override
+    @Transactional
+    public void deleteSchedule(Long scheduleId) {
+        // 일정이 존재하지 않을 경우 예외 발생
+        Schedules schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 일정 아이디: " + scheduleId));
+
+        // 삭제 작업 수행
+        scheduleRepository.delete(schedule);
+
+
+    }
 }
