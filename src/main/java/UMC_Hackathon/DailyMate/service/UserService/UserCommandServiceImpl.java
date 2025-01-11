@@ -52,7 +52,7 @@ public class UserCommandServiceImpl implements UserCommandService{
 
         user.setName(request.getName());
         user.setPassword(request.getPassword());
-        user.setBirthday(Date.valueOf(request.getBirth()));
+        user.setBirthday(request.getBirth());
 
         return userRepository.save(user);
     }
