@@ -41,4 +41,10 @@ public class ScheduleRestController {
         return ApiResponse.onSuccess(ScheduleConverter.toSchedulePreViewListDTO(myScheduleList));
     }
 
+    @DeleteMapping("/{scheduleId}")
+    @Operation(summary = "일정 삭제 API")
+    public ApiResponse<Void> deleteSchedule(@PathVariable Long scheduleId) {
+        scheduleCommandService.deleteSchedule(scheduleId);
+        return new ApiResponse<>(true, null, "일정이 성공적으로 삭제되었습니다.", null);
+    }
 }
