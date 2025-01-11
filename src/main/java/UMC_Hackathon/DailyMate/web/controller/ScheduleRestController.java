@@ -47,4 +47,12 @@ public class ScheduleRestController {
         scheduleCommandService.deleteSchedule(scheduleId);
         return new ApiResponse<>(true, null, "일정이 성공적으로 삭제되었습니다.", null);
     }
+
+    @PatchMapping("/{scheduleId}")
+    @Operation(summary = "일정 수정 API")
+    public ApiResponse<ScheduleResponseDTO.ScheduleUpdateResultDto> updateSchedule(@RequestBody @Valid ScheduleRequestDTO.ScheduleUpdateRequestDto request,
+                                                                                   @ExistUsers @RequestParam(name = "userId") Long userId, @PathVariable Long scheduleId) {
+        Schedules updatedSchedule = scheduleCommandService.updateSchedule(request, userId, scheduleId);
+        return new ApiResponse<>(true,null, "일정이 성공적으로 수정되었습니다.", null);
+    }
 }
