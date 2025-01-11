@@ -1,0 +1,27 @@
+package UMC_Hackathon.DailyMate.converter;
+
+import UMC_Hackathon.DailyMate.domain.Users;
+import UMC_Hackathon.DailyMate.web.dto.UserRequestDTO;
+import UMC_Hackathon.DailyMate.web.dto.UserResponseDTO;
+
+import java.time.LocalDateTime;
+
+public class UserConverter {
+    public static UserResponseDTO.JoinResultDTO toJoinResultDTO(Users users){
+        return UserResponseDTO.JoinResultDTO.builder()
+                .userId(users.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static Users toUser(UserRequestDTO.JoinDto request){
+
+
+        return Users.builder()
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .name(request.getName())
+                .birthday(request.getBirthday())
+                .build();
+    }
+}
