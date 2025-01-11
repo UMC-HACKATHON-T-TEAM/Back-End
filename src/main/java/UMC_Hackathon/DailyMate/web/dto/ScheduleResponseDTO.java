@@ -34,7 +34,7 @@ public class ScheduleResponseDTO {
     @AllArgsConstructor
     public static class SchedulePreViewDto {
         Long scheduleId;
-        String date;
+        LocalDate date;
         String title;
         String content;
         LocalDate createdAt;

@@ -5,11 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 public class ScheduleRequestDTO {
     @Getter
     public static class ScheduleDto {
         @NotNull
-        String date;
+        LocalDate date;
         @NotBlank
         String title;
         @NotBlank
@@ -20,7 +22,7 @@ public class ScheduleRequestDTO {
     @Setter
     public static class ScheduleUpdateRequestDto {
         @NotNull
-        String date;
+        LocalDate date;
         @NotBlank
         String title;
         @NotBlank

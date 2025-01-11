@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 public class UserRequestDTO {
     @Getter
     public static class JoinDto{
@@ -15,7 +17,7 @@ public class UserRequestDTO {
         @NotBlank
         String password;
         @NotNull
-        String birthday; // LocalDate로 선언..?
+        LocalDate birthday; // LocalDate로 선언..?
 
     }
 }

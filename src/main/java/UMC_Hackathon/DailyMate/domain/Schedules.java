@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,8 +23,7 @@ public class Schedules extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Size(min = 10, max = 10, message = "날짜는 정확히 10자리로 입력해야 합니다. 예: YYYY.MM.DD")
-    private String date;
+    private LocalDate date;
 
     @Column(nullable = false, length = 50)
     private String title;
