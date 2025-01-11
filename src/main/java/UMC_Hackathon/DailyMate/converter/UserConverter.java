@@ -17,12 +17,12 @@ public class UserConverter {
 
     public static Users toUser(UserRequestDTO.JoinDto request){
 
-
         return Users.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
                 .name(request.getName())
-                .birthday(Date.valueOf(request.getBirthday()))
+                .gender(request.getGender())
+                .birthday(request.getBirthday())
                 .build();
     }
 
